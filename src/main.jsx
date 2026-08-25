@@ -87,19 +87,23 @@ function App() {
       ? systems
       : systems.filter((x) => x[1] === c);
 
-  // Ruta correcta para GitHub Pages
   const imagePath = (image) =>
-    `${import.meta.env.BASE_URL}images/${image}`;
+    import.meta.env.BASE_URL + "images/" + image;
 
   return (
     <>
+      {/* HEADER */}
       <header>
         <div className="container nav">
           <button
             className="brand"
             onClick={() => go("inicio")}
           >
-            <b>G</b>
+            <img
+              src={imagePath("logo-grumep.png")}
+              alt="GRUMEP"
+              className="logo"
+            />
 
             <span>
               <strong>GRUMEP</strong>
@@ -143,6 +147,7 @@ function App() {
         </div>
       </header>
 
+      {/* HERO */}
       <section id="inicio" className="hero">
         <div className="container heroGrid">
           <div>
@@ -157,8 +162,8 @@ function App() {
 
             <p>
               Desarrollamos sistemas de gestión modernos,
-              prácticos y adaptados a las necesidades
-              reales de comercios, profesionales y empresas.
+              prácticos y adaptados a las necesidades reales
+              de comercios, profesionales y empresas.
             </p>
 
             <div className="actions">
@@ -249,6 +254,7 @@ function App() {
         </div>
       </section>
 
+      {/* STATS */}
       <section className="stats">
         <div className="container">
           <span>
@@ -273,7 +279,11 @@ function App() {
         </div>
       </section>
 
-      <section id="desarrollos" className="section">
+      {/* DESARROLLOS */}
+      <section
+        id="desarrollos"
+        className="section"
+      >
         <div className="container">
           <div className="heading">
             <div>
@@ -324,7 +334,9 @@ function App() {
 
                   <div className="features">
                     {s[4].map((f) => (
-                      <small key={f}>{f}</small>
+                      <small key={f}>
+                        {f}
+                      </small>
                     ))}
                   </div>
 
@@ -341,7 +353,11 @@ function App() {
         </div>
       </section>
 
-      <section id="servicios" className="section dark">
+      {/* SERVICIOS */}
+      <section
+        id="servicios"
+        className="section dark"
+      >
         <div className="container">
           <div className="heading light">
             <div>
@@ -397,10 +413,17 @@ function App() {
         </div>
       </section>
 
-      <section id="nosotros" className="section about">
+      {/* NOSOTROS */}
+      <section
+        id="nosotros"
+        className="section about"
+      >
         <div className="container aboutGrid">
           <div className="aboutLogo">
-            G
+            <img
+              src={imagePath("logo-grumep.png")}
+              alt="GRUMEP"
+            />
           </div>
 
           <div>
@@ -443,18 +466,25 @@ function App() {
         </div>
       </section>
 
-      <section id="contacto" className="contact">
+      {/* CONTACTO */}
+      <section
+        id="contacto"
+        className="contact"
+      >
         <div className="container contactBox">
           <div>
-            <label>¿TENÉS UN PROYECTO?</label>
+            <label>
+              ¿TENÉS UN PROYECTO?
+            </label>
 
             <h2>
-              Hablemos sobre <em>tu idea.</em>
+              Hablemos sobre{" "}
+              <em>tu idea.</em>
             </h2>
 
             <p>
-              Contanos qué necesitás y evaluamos juntos la
-              mejor solución para tu negocio.
+              Contanos qué necesitás y evaluamos juntos
+              la mejor solución para tu negocio.
             </p>
           </div>
 
@@ -470,11 +500,16 @@ function App() {
         </div>
       </section>
 
+      {/* FOOTER */}
       <footer>
         <div className="container footer">
           <div>
             <div className="fbrand">
-              <b>G</b>
+              <img
+                src={imagePath("logo-grumep.png")}
+                alt="GRUMEP"
+              />
+
               <strong>GRUMEP</strong>
             </div>
 
@@ -486,15 +521,21 @@ function App() {
           <div>
             <h4>Navegación</h4>
 
-            <button onClick={() => go("desarrollos")}>
+            <button
+              onClick={() => go("desarrollos")}
+            >
               Desarrollos
             </button>
 
-            <button onClick={() => go("servicios")}>
+            <button
+              onClick={() => go("servicios")}
+            >
               Servicios
             </button>
 
-            <button onClick={() => go("contacto")}>
+            <button
+              onClick={() => go("contacto")}
+            >
               Contacto
             </button>
           </div>
@@ -519,6 +560,7 @@ function App() {
         </div>
       </footer>
 
+      {/* MODAL */}
       {sel && (
         <div
           className="modalBg"
