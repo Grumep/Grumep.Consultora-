@@ -16,7 +16,6 @@ body {
     BlinkMacSystemFont,
     "Segoe UI",
     sans-serif;
-
   background: #ffffff;
   color: #17151f;
 }
@@ -916,9 +915,38 @@ footer {
     grid-template-columns: 1fr 1fr;
   }
 
+  /* ===== FOOTER MOBILE ===== */
+
   .footer {
     grid-template-columns: 1fr;
-    gap: 30px;
+    gap: 38px;
+    padding: 50px 0;
+  }
+
+  .footer > div {
+    width: 100%;
+  }
+
+  .footer h4 {
+    margin-bottom: 14px;
+  }
+
+  .footer p {
+    line-height: 1.6;
+  }
+
+  .footer a,
+  .footer button,
+  .footer span {
+    display: block;
+    width: fit-content;
+    margin-bottom: 12px;
+    line-height: 1.6;
+  }
+
+  .copy {
+    padding: 20px 14px;
+    line-height: 1.6;
   }
 
   .modalFeatures {
@@ -927,6 +955,10 @@ footer {
 }
 
 @media (max-width: 480px) {
+  .container {
+    width: calc(100% - 24px);
+  }
+
   .hero h1 {
     font-size: 38px;
   }
@@ -958,5 +990,54 @@ footer {
 
   .aboutLogo {
     min-height: 300px;
+  }
+
+  /* ===== CONTACT MOBILE ===== */
+
+  .contact {
+    padding: 60px 0;
+  }
+
+  .contactBox {
+    gap: 28px;
+  }
+
+  .contactBox .primary {
+    width: 100%;
+    white-space: normal;
+    text-align: center;
+  }
+
+  /* ===== FOOTER MOBILE ===== */
+
+  .footer {
+    gap: 35px;
+    padding: 45px 0;
+  }
+
+  .footer > div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footer p {
+    margin-top: 10px;
+  }
+
+  .footer a,
+  .footer button,
+  .footer span {
+    margin-bottom: 10px;
+  }
+
+  .fbrand {
+    flex-direction: row !important;
+    align-items: center !important;
+  }
+
+  .copy {
+    font-size: 11px;
+    padding: 18px 12px;
   }
 }
