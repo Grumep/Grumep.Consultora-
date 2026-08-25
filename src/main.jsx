@@ -1,68 +1,124 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+
 import { createRoot } from "react-dom/client";
+
 import {
+  ArrowLeft,
   ArrowRight,
+  BarChart3,
   CheckCircle2,
   Code2,
   Database,
+  Home,
   Menu,
   MessageCircle,
   MonitorCog,
-  ShieldCheck,
-  X,
-  Home,
-  BarChart3,
-  Users,
+  Play,
   Settings,
+  ShieldCheck,
+  Users,
+  X,
 } from "lucide-react";
+
 import "./style.css";
 
+/* =========================================================
+   CONFIGURACIÓN DE LOS SISTEMAS
+========================================================= */
+
 const systems = [
-  [
-    "TiendaApp",
-    "Comercios",
-    "tiendaapp.png",
-    "Sistema de gestión para comercios, ventas, productos y control de stock.",
-    ["Ventas", "Stock", "Productos", "Reportes"],
-  ],
-  [
-    "GrumPet",
-    "Veterinarias",
-    "grumpet.png",
-    "Sistema de gestión para pet shops y negocios dedicados a productos para mascotas.",
-    ["Productos", "Ventas", "Stock", "Clientes"],
-  ],
-  [
-    "GrumDent",
-    "Salud",
-    "grumdent.png",
-    "Sistema de gestión para consultorios y profesionales de odontología.",
-    ["Pacientes", "Consultas", "Historia clínica", "Gestión"],
-  ],
-  [
-    "Talvena",
-    "Salud",
-    "talvena.png",
-    "Sistema de gestión clínica para organizar pacientes, médicos y consultas.",
-    ["Pacientes", "Médicos", "Signos", "Historia médica"],
-  ],
-  [
-    "TallerPro",
-    "Servicios",
-    "tallerpro.png",
-    "Sistema de gestión para talleres mecánicos y seguimiento de reparaciones.",
-    ["Clientes", "Vehículos", "Órdenes", "Historial"],
-  ],
-  [
-    "VerdaMax",
-    "Comercios",
-    "verdadmax.png",
-    "Solución orientada a la gestión de comercios de frutas y verduras.",
-    ["Productos", "Ventas", "Stock", "Gestión"],
-  ],
+  {
+    name: "TiendaApp",
+    category: "Comercios",
+    image: "tiendaapp.png",
+    video: "tiendaapp.mp4",
+    description:
+      "Sistema de gestión para comercios, ventas, productos y control de stock.",
+    features: [
+      "Ventas",
+      "Stock",
+      "Productos",
+      "Reportes",
+    ],
+  },
+
+  {
+    name: "GrumPet",
+    category: "Veterinarias",
+    image: "grumpet.png",
+    video: "Grumpet.mp4",
+    description:
+      "Sistema de gestión para pet shops y negocios dedicados a productos para mascotas.",
+    features: [
+      "Productos",
+      "Ventas",
+      "Stock",
+      "Clientes",
+    ],
+  },
+
+  {
+    name: "GrumDent",
+    category: "Salud",
+    image: "grumdent.png",
+    video: "grumdent.mp4",
+    description:
+      "Sistema de gestión para consultorios y profesionales de odontología.",
+    features: [
+      "Pacientes",
+      "Consultas",
+      "Historia clínica",
+      "Gestión",
+    ],
+  },
+
+  {
+    name: "Talvena",
+    category: "Salud",
+    image: "talvena.png",
+    video: "talvena.mp4",
+    description:
+      "Sistema de gestión clínica para organizar pacientes, médicos y consultas.",
+    features: [
+      "Pacientes",
+      "Médicos",
+      "Signos",
+      "Historia médica",
+    ],
+  },
+
+  {
+    name: "TallerPro",
+    category: "Servicios",
+    image: "tallerpro.png",
+    video: "tallerpro.mp4",
+    description:
+      "Sistema de gestión para talleres mecánicos y seguimiento de reparaciones.",
+    features: [
+      "Clientes",
+      "Vehículos",
+      "Órdenes",
+      "Historial",
+    ],
+  },
+
+  {
+    name: "VerdaMax",
+    category: "Comercios",
+    image: "verdadmax.png",
+    video: "verdadmax.mp4",
+    description:
+      "Solución orientada a la gestión de comercios de frutas y verduras.",
+    features: [
+      "Productos",
+      "Ventas",
+      "Stock",
+      "Gestión",
+    ],
+  },
 ];
 
-const cats = [
+const categories = [
   "Todos",
   "Comercios",
   "Salud",
@@ -70,36 +126,367 @@ const cats = [
   "Servicios",
 ];
 
+/* =========================================================
+   APP
+========================================================= */
+
 function App() {
   const [category, setCategory] = useState("Todos");
   const [menuOpen, setMenuOpen] = useState(false);
-  const [selectedSystem, setSelectedSystem] = useState(null);
+  const [currentDemo, setCurrentDemo] = useState(null);
 
   const base = import.meta.env.BASE_URL;
 
   const whatsapp =
     "https://wa.me/543804881636?text=Hola%20GRUMEP,%20quiero%20consultar%20por%20un%20sistema";
 
+  /* =======================================================
+     DETECTAR PÁGINA DE DEMOSTRACIÓN
+  ======================================================= */
+
+  const getDemoFromHash = () => {
+    const hash = window.location.hash;
+
+    if (!hash.startsWith("#/sistemas/")) {
+      return null;
+    }
+
+    const slug = hash
+      .replace("#/sistemas/", "")
+      .toLowerCase();
+
+    const system = systems.find(
+      (item) =>
+        item.name.toLowerCase().replace(/\s+/g, "") ===
+        slug
+    );
+
+    return system || null;
+  };
+
+  useEffect(() => {
+    const updatePage = () => {
+      setCurrentDemo(getDemoFromHash());
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    };
+
+    updatePage();
+
+    window.addEventListener("hashchange", updatePage);
+
+    return () => {
+      window.removeEventListener(
+        "hashchange",
+        updatePage
+      );
+    };
+  }, []);
+
+  /* =======================================================
+     NAVEGACIÓN
+  ======================================================= */
+
   const go = (id) => {
-    document.getElementById(id)?.scrollIntoView({
-      behavior: "smooth",
-    });
+    if (window.location.hash) {
+      window.location.hash = "";
+    }
+
+    setTimeout(() => {
+      document
+        .getElementById(id)
+        ?.scrollIntoView({
+          behavior: "smooth",
+        });
+    }, 50);
 
     setMenuOpen(false);
   };
 
+  const openDemo = (system) => {
+    const slug = system.name
+      .toLowerCase()
+      .replace(/\s+/g, "");
+
+    window.location.hash = `/sistemas/${slug}`;
+
+    setMenuOpen(false);
+  };
+
+  const closeDemo = () => {
+    window.location.hash = "";
+    setCurrentDemo(null);
+
+    setTimeout(() => {
+      document
+        .getElementById("desarrollos")
+        ?.scrollIntoView({
+          behavior: "smooth",
+        });
+    }, 50);
+  };
+
+  /* =======================================================
+     SI ESTAMOS EN UNA DEMOSTRACIÓN
+  ======================================================= */
+
+  if (currentDemo) {
+    return (
+      <>
+        <header className="header">
+          <div className="container nav">
+            <button
+              className="brand"
+              onClick={closeDemo}
+            >
+              <img
+                className="brandLogo"
+                src={`${base}images/logo.png`}
+                alt="GRUMEP"
+              />
+
+              <span>
+                <strong>GRUMEP</strong>
+
+                <small>
+                  Consultora de Desarrollo de Software
+                </small>
+              </span>
+            </button>
+
+            <button
+              className="navCta"
+              onClick={() => {
+                window.location.href = whatsapp;
+              }}
+            >
+              Contactar
+            </button>
+          </div>
+        </header>
+
+        <main className="demoPage">
+          <div className="container">
+
+            <button
+              className="backButton"
+              onClick={closeDemo}
+            >
+              <ArrowLeft />
+              Volver a desarrollos
+            </button>
+
+            <div className="demoHeader">
+              <div>
+                <label>
+                  DEMOSTRACIÓN DEL SISTEMA
+                </label>
+
+                <h1>
+                  {currentDemo.name}
+                </h1>
+
+                <p>
+                  {currentDemo.description}
+                </p>
+              </div>
+            </div>
+
+            {/* VIDEO */}
+
+            <section className="demoVideo">
+              <div className="videoHeader">
+                <Play />
+                <span>
+                  Demostración de {currentDemo.name}
+                </span>
+              </div>
+
+              <video
+                controls
+                playsInline
+                preload="metadata"
+                poster={`${base}images/${currentDemo.image}`}
+              >
+                <source
+                  src={`${base}videos/${currentDemo.video}`}
+                  type="video/mp4"
+                />
+
+                Tu navegador no puede reproducir este
+                video.
+              </video>
+            </section>
+
+            {/* INFORMACIÓN */}
+
+            <section className="demoInfo">
+
+              <div className="demoDescription">
+                <label>
+                  SOBRE EL SISTEMA
+                </label>
+
+                <h2>
+                  Una solución pensada para tu negocio.
+                </h2>
+
+                <p>
+                  {currentDemo.description}
+                </p>
+
+                <p>
+                  GRUMEP desarrolla soluciones de software
+                  adaptadas a las necesidades reales de
+                  cada negocio y profesional.
+                </p>
+              </div>
+
+              <div className="demoFeatures">
+                <label>
+                  FUNCIONALIDADES
+                </label>
+
+                <h3>
+                  Principales características
+                </h3>
+
+                <div className="featureList">
+                  {currentDemo.features.map(
+                    (feature) => (
+                      <span key={feature}>
+                        <CheckCircle2 />
+                        {feature}
+                      </span>
+                    )
+                  )}
+                </div>
+              </div>
+
+            </section>
+
+            {/* IMAGEN */}
+
+            <section className="demoScreenshot">
+
+              <label>
+                VISTA DEL SISTEMA
+              </label>
+
+              <h2>
+                Conocé {currentDemo.name}
+              </h2>
+
+              <img
+                src={`${base}images/${currentDemo.image}`}
+                alt={currentDemo.name}
+              />
+
+            </section>
+
+            {/* CONTACTO */}
+
+            <section className="demoContact">
+
+              <div>
+                <label>
+                  ¿TE INTERESA ESTE SISTEMA?
+                </label>
+
+                <h2>
+                  Solicita una demostración.
+                </h2>
+
+                <p>
+                  Contactanos por WhatsApp y
+                  conocé cómo podemos adaptar
+                  {` ${currentDemo.name}`} a tu negocio.
+                </p>
+              </div>
+
+              <a
+                className="primary"
+                href={whatsapp}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <MessageCircle />
+                Solicitar demostración
+              </a>
+
+            </section>
+
+          </div>
+        </main>
+
+        <footer>
+          <div className="container footer">
+            <div>
+              <div className="fbrand">
+                <img
+                  src={`${base}images/logo.png`}
+                  alt="GRUMEP"
+                />
+
+                <strong>GRUMEP</strong>
+              </div>
+
+              <p>
+                Consultora de Desarrollo de Software.
+              </p>
+            </div>
+
+            <div>
+              <h4>Contacto</h4>
+
+              <a
+                href={whatsapp}
+                target="_blank"
+                rel="noreferrer"
+              >
+                WhatsApp: 380 488-1636
+              </a>
+
+              <span>
+                La Rioja, Argentina
+              </span>
+            </div>
+          </div>
+
+          <div className="copy">
+            © 2026 GRUMEP. Todos los derechos
+            reservados.
+          </div>
+        </footer>
+      </>
+    );
+  }
+
+  /* =======================================================
+     PÁGINA PRINCIPAL
+  ======================================================= */
+
   const list =
     category === "Todos"
       ? systems
-      : systems.filter((system) => system[1] === category);
+      : systems.filter(
+          (system) => system.category === category
+        );
 
   return (
     <>
-      {/* ================= HEADER ================= */}
+      {/* HEADER */}
 
       <header className="header">
         <div className="container nav">
-          <button className="brand" onClick={() => go("inicio")}>
+
+          <button
+            className="brand"
+            onClick={() => go("inicio")}
+          >
             <img
               className="brandLogo"
               src={`${base}images/logo.png`}
@@ -108,22 +495,39 @@ function App() {
 
             <span>
               <strong>GRUMEP</strong>
-              <small>Consultora de Desarrollo de Software</small>
+
+              <small>
+                Consultora de Desarrollo de Software
+              </small>
             </span>
           </button>
 
-          <nav className={menuOpen ? "open" : ""}>
-            <button onClick={() => go("inicio")}>Inicio</button>
+          <nav
+            className={
+              menuOpen ? "open" : ""
+            }
+          >
+            <button
+              onClick={() => go("inicio")}
+            >
+              Inicio
+            </button>
 
-            <button onClick={() => go("desarrollos")}>
+            <button
+              onClick={() => go("desarrollos")}
+            >
               Desarrollos
             </button>
 
-            <button onClick={() => go("servicios")}>
+            <button
+              onClick={() => go("servicios")}
+            >
               Servicios
             </button>
 
-            <button onClick={() => go("nosotros")}>
+            <button
+              onClick={() => go("nosotros")}
+            >
               Nosotros
             </button>
 
@@ -137,20 +541,30 @@ function App() {
 
           <button
             className="menuButton"
-            onClick={() => setMenuOpen(!menuOpen)}
+            onClick={() =>
+              setMenuOpen(!menuOpen)
+            }
             aria-label="Abrir menú"
           >
             {menuOpen ? <X /> : <Menu />}
           </button>
+
         </div>
       </header>
 
-      {/* ================= HERO ================= */}
+      {/* HERO */}
 
-      <section id="inicio" className="hero">
+      <section
+        id="inicio"
+        className="hero"
+      >
         <div className="container heroGrid">
+
           <div className="heroContent">
-            <label>SOFTWARE QUE SE ADAPTA A TU NEGOCIO</label>
+
+            <label>
+              SOFTWARE QUE SE ADAPTA A TU NEGOCIO
+            </label>
 
             <h1>
               Soluciones digitales para{" "}
@@ -159,14 +573,18 @@ function App() {
 
             <p>
               Desarrollamos sistemas de gestión modernos,
-              prácticos y adaptados a las necesidades reales de
-              comercios, profesionales y empresas.
+              prácticos y adaptados a las necesidades
+              reales de comercios, profesionales y
+              empresas.
             </p>
 
             <div className="actions">
+
               <button
                 className="primary"
-                onClick={() => go("desarrollos")}
+                onClick={() =>
+                  go("desarrollos")
+                }
               >
                 Ver nuestros desarrollos
                 <ArrowRight />
@@ -181,9 +599,11 @@ function App() {
                 <MessageCircle />
                 Solicitar demostración
               </a>
+
             </div>
 
             <div className="trust">
+
               <span>
                 <CheckCircle2 />
                 Desarrollo personalizado
@@ -198,18 +618,23 @@ function App() {
                 <CheckCircle2 />
                 Soluciones escalables
               </span>
+
             </div>
+
           </div>
 
           {/* MOCKUP */}
 
           <div className="mock">
+
             <div className="mockTop">
               GRUMEP / SOFTWARE
             </div>
 
             <main>
+
               <aside>
+
                 <div className="mockLogo">
                   <img
                     src={`${base}images/logo.png`}
@@ -232,48 +657,70 @@ function App() {
                 <button>
                   <Settings />
                 </button>
+
               </aside>
 
               <article>
-                <small>PANEL DE GESTIÓN</small>
 
-                <h3>Tu negocio, bajo control.</h3>
+                <small>
+                  PANEL DE GESTIÓN
+                </small>
+
+                <h3>
+                  Tu negocio, bajo control.
+                </h3>
 
                 <section className="mockStats">
+
                   <span>
                     Ventas
-                    <strong>$ 1.250.000</strong>
+                    <strong>
+                      $ 1.250.000
+                    </strong>
                   </span>
 
                   <span>
                     Productos
-                    <strong>1.284</strong>
+                    <strong>
+                      1.284
+                    </strong>
                   </span>
 
                   <span>
                     Clientes
-                    <strong>428</strong>
+                    <strong>
+                      428
+                    </strong>
                   </span>
+
                 </section>
 
                 <div className="chart">
+
                   <i></i>
                   <i></i>
                   <i></i>
                   <i></i>
                   <i></i>
                   <i></i>
+
                 </div>
+
               </article>
+
             </main>
+
           </div>
+
         </div>
       </section>
 
-      {/* ================= STATS ================= */}
+      {/* STATS */}
 
       <section className="stats">
+
         <div className="container statsGrid">
+
           <span>
             <b>6+</b>
             Desarrollos presentados
@@ -293,163 +740,285 @@ function App() {
             <b>1</b>
             Objetivo: hacer crecer tu negocio
           </span>
+
         </div>
+
       </section>
 
-      {/* ================= DESARROLLOS ================= */}
+      {/* DESARROLLOS */}
 
-      <section id="desarrollos" className="section">
+      <section
+        id="desarrollos"
+        className="section"
+      >
+
         <div className="container">
+
           <div className="heading">
+
             <div>
-              <label>PORTAFOLIO</label>
+
+              <label>
+                PORTAFOLIO
+              </label>
 
               <h2>
-                Nuestros <em>desarrollos</em>
+                Nuestros{" "}
+                <em>desarrollos</em>
               </h2>
+
             </div>
 
             <p>
-              Conocé los sistemas que estamos desarrollando
-              para distintos tipos de negocios y profesionales.
+              Conocé los sistemas que estamos
+              desarrollando para distintos tipos
+              de negocios y profesionales.
             </p>
+
           </div>
+
+          {/* FILTROS */}
 
           <div className="filters">
-            {cats.map((cat) => (
-              <button
-                key={cat}
-                className={
-                  category === cat ? "active" : ""
-                }
-                onClick={() => setCategory(cat)}
-              >
-                {cat}
-              </button>
-            ))}
+
+            {categories.map(
+              (cat) => (
+
+                <button
+                  key={cat}
+                  className={
+                    category === cat
+                      ? "active"
+                      : ""
+                  }
+                  onClick={() =>
+                    setCategory(cat)
+                  }
+                >
+                  {cat}
+                </button>
+
+              )
+            )}
+
           </div>
 
+          {/* CARDS */}
+
           <div className="grid">
-            {list.map((system) => (
-              <article
-                className="card"
-                key={system[0]}
-              >
-                <div className="image">
-                  <img
-                    src={`${base}images/${system[2]}`}
-                    alt={system[0]}
-                  />
 
-                  <span>{system[1]}</span>
-                </div>
+            {list.map(
+              (system) => (
 
-                <div className="body">
-                  <h3>{system[0]}</h3>
+                <article
+                  className="card"
+                  key={system.name}
+                >
 
-                  <p>{system[3]}</p>
+                  {/* IMAGEN CLICKEABLE */}
 
-                  <div className="features">
-                    {system[4].map((feature) => (
-                      <small key={feature}>
-                        {feature}
-                      </small>
-                    ))}
-                  </div>
-
-                  <button
+                  <div
+                    className="image demoClickable"
                     onClick={() =>
-                      setSelectedSystem(system)
+                      openDemo(system)
                     }
                   >
-                    Ver detalles
-                    <ArrowRight />
-                  </button>
-                </div>
-              </article>
-            ))}
+
+                    <img
+                      src={`${base}images/${system.image}`}
+                      alt={system.name}
+                    />
+
+                    <span>
+                      {system.category}
+                    </span>
+
+                    <div className="imageOverlay">
+                      <Play />
+                      Ver demostración
+                    </div>
+
+                  </div>
+
+                  <div className="body">
+
+                    <h3>
+                      {system.name}
+                    </h3>
+
+                    <p>
+                      {system.description}
+                    </p>
+
+                    <div className="features">
+
+                      {system.features.map(
+                        (feature) => (
+
+                          <small
+                            key={feature}
+                          >
+                            {feature}
+                          </small>
+
+                        )
+                      )}
+
+                    </div>
+
+                    <button
+                      onClick={() =>
+                        openDemo(system)
+                      }
+                    >
+                      Ver demostración
+                      <ArrowRight />
+                    </button>
+
+                  </div>
+
+                </article>
+
+              )
+            )}
+
           </div>
 
           <div className="portfolioNote">
+
             <CheckCircle2 />
-            Sistemas desarrollados y adaptables a cada negocio.
+
+            Sistemas desarrollados y
+            adaptables a cada negocio.
+
           </div>
+
         </div>
+
       </section>
 
-      {/* ================= SERVICIOS ================= */}
+      {/* SERVICIOS */}
 
-      <section id="servicios" className="section dark">
+      <section
+        id="servicios"
+        className="section dark"
+      >
+
         <div className="container">
+
           <div className="heading light">
+
             <div>
-              <label>SERVICIOS</label>
+
+              <label>
+                SERVICIOS
+              </label>
 
               <h2>
-                Software para cada <em>necesidad</em>
+                Software para cada{" "}
+                <em>necesidad</em>
               </h2>
+
             </div>
 
             <p>
-              No necesitás adaptar tu negocio a un sistema.
-              Adaptamos el sistema a tu negocio.
+              No necesitás adaptar tu negocio a
+              un sistema. Adaptamos el sistema a
+              tu negocio.
             </p>
+
           </div>
 
           <div className="services">
+
             {[
               [
                 MonitorCog,
                 "Gestión de stock y ventas",
                 "Controlá productos, ventas, clientes y stock desde un solo lugar.",
               ],
+
               [
                 Code2,
                 "Desarrollo a medida",
                 "Software creado según los procesos reales de tu empresa.",
               ],
+
               [
                 Database,
                 "Turnos y fichas",
                 "Organización de pacientes, profesionales, consultas e información.",
               ],
+
               [
                 ShieldCheck,
                 "Soporte y evolución",
                 "Mantenimiento, mejoras y nuevas funcionalidades para tu sistema.",
               ],
-            ].map(([Icon, title, description]) => (
-              <div className="service" key={title}>
-                <Icon />
+            ].map(
+              ([
+                Icon,
+                title,
+                description,
+              ]) => (
 
-                <h3>{title}</h3>
+                <div
+                  className="service"
+                  key={title}
+                >
 
-                <p>{description}</p>
-              </div>
-            ))}
+                  <Icon />
+
+                  <h3>
+                    {title}
+                  </h3>
+
+                  <p>
+                    {description}
+                  </p>
+
+                </div>
+
+              )
+            )}
+
           </div>
+
         </div>
+
       </section>
 
-      {/* ================= NOSOTROS ================= */}
+      {/* NOSOTROS */}
 
-      <section id="nosotros" className="section about">
+      <section
+        id="nosotros"
+        className="section about"
+      >
+
         <div className="container aboutGrid">
+
           <div className="aboutLogo">
+
             <img
               src={`${base}images/logo.png`}
               alt="GRUMEP"
             />
 
-            <strong>GRUMEP</strong>
+            <strong>
+              GRUMEP
+            </strong>
 
             <span>
               Consultora de Desarrollo de Software
             </span>
+
           </div>
 
           <div>
-            <label>SOBRE GRUMEP</label>
+
+            <label>
+              SOBRE GRUMEP
+            </label>
 
             <h2>
               Transformamos ideas en{" "}
@@ -457,18 +1026,21 @@ function App() {
             </h2>
 
             <p>
-              GRUMEP es una consultora enfocada en el
-              desarrollo de soluciones de software para
-              negocios y profesionales.
+              GRUMEP es una consultora enfocada
+              en el desarrollo de soluciones de
+              software para negocios y
+              profesionales.
             </p>
 
             <p>
-              Buscamos crear herramientas simples de usar,
-              útiles para el día a día y preparadas para
-              acompañar el crecimiento de cada cliente.
+              Buscamos crear herramientas simples
+              de usar, útiles para el día a día y
+              preparadas para acompañar el
+              crecimiento de cada cliente.
             </p>
 
             <div className="points">
+
               <span>
                 <CheckCircle2 />
                 Tecnología aplicada a problemas reales
@@ -483,26 +1055,41 @@ function App() {
                 <CheckCircle2 />
                 Desarrollo pensado para crecer
               </span>
+
             </div>
+
           </div>
+
         </div>
+
       </section>
 
-      {/* ================= CONTACTO ================= */}
+      {/* CONTACTO */}
 
-      <section id="contacto" className="contact">
+      <section
+        id="contacto"
+        className="contact"
+      >
+
         <div className="container contactBox">
+
           <div>
-            <label>¿TENÉS UN PROYECTO?</label>
+
+            <label>
+              ¿TENÉS UN PROYECTO?
+            </label>
 
             <h2>
-              Hablemos sobre <em>tu idea.</em>
+              Hablemos sobre{" "}
+              <em>tu idea.</em>
             </h2>
 
             <p>
-              Contanos qué necesitás y evaluamos juntos la
-              mejor solución para tu negocio.
+              Contanos qué necesitás y evaluamos
+              juntos la mejor solución para tu
+              negocio.
             </p>
+
           </div>
 
           <a
@@ -514,46 +1101,75 @@ function App() {
             <MessageCircle />
             Contactar por WhatsApp
           </a>
+
         </div>
+
       </section>
 
-      {/* ================= FOOTER ================= */}
+      {/* FOOTER */}
 
       <footer>
+
         <div className="container footer">
+
           <div>
+
             <div className="fbrand">
+
               <img
                 src={`${base}images/logo.png`}
                 alt="GRUMEP"
               />
 
-              <strong>GRUMEP</strong>
+              <strong>
+                GRUMEP
+              </strong>
+
             </div>
 
             <p>
               Consultora de Desarrollo de Software.
             </p>
+
           </div>
 
           <div>
-            <h4>Navegación</h4>
 
-            <button onClick={() => go("desarrollos")}>
+            <h4>
+              Navegación
+            </h4>
+
+            <button
+              onClick={() =>
+                go("desarrollos")
+              }
+            >
               Desarrollos
             </button>
 
-            <button onClick={() => go("servicios")}>
+            <button
+              onClick={() =>
+                go("servicios")
+              }
+            >
               Servicios
             </button>
 
-            <button onClick={() => go("contacto")}>
+            <button
+              onClick={() =>
+                go("contacto")
+              }
+            >
               Contacto
             </button>
+
           </div>
 
           <div className="footerContact">
-            <h4>Contacto</h4>
+
+            <h4>
+              Contacto
+            </h4>
 
             <a
               href={whatsapp}
@@ -566,74 +1182,23 @@ function App() {
             <span>
               La Rioja, Argentina
             </span>
+
           </div>
+
         </div>
 
         <div className="copy">
-          © 2026 GRUMEP. Todos los derechos reservados.
+          © 2026 GRUMEP. Todos los derechos
+          reservados.
         </div>
+
       </footer>
-
-      {/* ================= MODAL ================= */}
-
-      {selectedSystem && (
-        <div
-          className="modalBg"
-          onClick={() => setSelectedSystem(null)}
-        >
-          <div
-            className="modal"
-            onClick={(event) =>
-              event.stopPropagation()
-            }
-          >
-            <button
-              className="close"
-              onClick={() =>
-                setSelectedSystem(null)
-              }
-            >
-              <X />
-            </button>
-
-            <img
-              src={`${base}images/${selectedSystem[2]}`}
-              alt={selectedSystem[0]}
-            />
-
-            <label>{selectedSystem[1]}</label>
-
-            <h2>{selectedSystem[0]}</h2>
-
-            <p>{selectedSystem[3]}</p>
-
-            <h4>Funcionalidades</h4>
-
-            <div className="modalFeatures">
-              {selectedSystem[4].map((feature) => (
-                <span key={feature}>
-                  <CheckCircle2 />
-                  {feature}
-                </span>
-              ))}
-            </div>
-
-            <a
-              className="primary"
-              href={whatsapp}
-              target="_blank"
-              rel="noreferrer"
-            >
-              <MessageCircle />
-              Solicitar demostración
-            </a>
-          </div>
-        </div>
-      )}
     </>
   );
 }
 
 createRoot(
   document.getElementById("root")
-).render(<App />);
+).render(
+  <App />
+);
