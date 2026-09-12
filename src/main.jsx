@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-
 import { createRoot } from "react-dom/client";
 
 import {
@@ -48,7 +47,6 @@ const systems = [
 
     pricing: {
       demo: true,
-
       plans: [
         {
           name: "Básico",
@@ -64,7 +62,6 @@ const systems = [
             "Reportes",
           ],
         },
-
         {
           name: "Pro",
           price: "$120.000",
@@ -80,7 +77,6 @@ const systems = [
             "Reportes",
           ],
         },
-
         {
           name: "Premium",
           price: "$250.000",
@@ -100,6 +96,21 @@ const systems = [
         },
       ],
     },
+  },
+
+  {
+    name: "TiendITa",
+    category: "Comercios",
+    image: "tiendita.png",
+    video: "tiendita.mp4",
+    description:
+      "Sistema de gestión para tiendas de ropa, ventas, productos y control de stock.",
+    features: [
+      "Ventas",
+      "Productos",
+      "Stock",
+      "Clientes",
+    ],
   },
 
   {
@@ -217,8 +228,7 @@ function App() {
 
     const system = systems.find(
       (item) =>
-        item.name.toLowerCase().replace(/\s+/g, "") ===
-        slug
+        item.name.toLowerCase().replace(/\s+/g, "") === slug
     );
 
     return system || null;
@@ -281,7 +291,6 @@ function App() {
 
   const closeDemo = () => {
     window.location.hash = "";
-
     setCurrentDemo(null);
 
     setTimeout(() => {
@@ -304,6 +313,7 @@ function App() {
 
         <header className="header">
           <div className="container nav">
+
             <button
               className="brand"
               onClick={closeDemo}
@@ -331,6 +341,7 @@ function App() {
             >
               Contactar
             </button>
+
           </div>
         </header>
 
@@ -395,6 +406,7 @@ function App() {
             {/* INFORMACIÓN */}
 
             <section className="demoInfo">
+
               <div className="demoDescription">
                 <label>
                   SOBRE EL SISTEMA
@@ -435,6 +447,7 @@ function App() {
                   )}
                 </div>
               </div>
+
             </section>
 
             {/* =================================================
@@ -443,6 +456,7 @@ function App() {
 
             {currentDemo.name === "TiendaApp" &&
               currentDemo.pricing && (
+
                 <section className="pricingSection">
 
                   <div className="pricingHeader">
@@ -473,6 +487,7 @@ function App() {
                     <Clock />
 
                     <div>
+
                       <strong>
                         ¿Cómo funciona el demo?
                       </strong>
@@ -482,6 +497,7 @@ function App() {
                         demo → el sistema solicita
                         activación → elegís tu licencia.
                       </span>
+
                     </div>
 
                   </div>
@@ -492,6 +508,7 @@ function App() {
 
                     {currentDemo.pricing.plans.map(
                       (plan) => (
+
                         <article
                           className={`pricingCard ${
                             plan.featured
@@ -545,17 +562,18 @@ function App() {
                             rel="noreferrer"
                           >
                             <MessageCircle />
-
                             Consultar licencia
                           </a>
 
                         </article>
+
                       )
                     )}
 
                   </div>
 
                   <div className="pricingFooter">
+
                     <CheckCircle2 />
 
                     <span>
@@ -564,6 +582,7 @@ function App() {
                       utilizando TiendaApp después
                       del período de demostración.
                     </span>
+
                   </div>
 
                 </section>
@@ -639,7 +658,6 @@ function App() {
         {/* FOOTER */}
 
         <footer>
-
           <div className="container footer">
 
             <div>
@@ -689,7 +707,6 @@ function App() {
             © 2026 GRUMEP. Todos los derechos
             reservados.
           </div>
-
         </footer>
       </>
     );
@@ -719,7 +736,6 @@ function App() {
             className="brand"
             onClick={() => go("inicio")}
           >
-
             <img
               className="brandLogo"
               src={`${base}images/logo.png`}
@@ -727,7 +743,6 @@ function App() {
             />
 
             <span>
-
               <strong>
                 GRUMEP
               </strong>
@@ -735,7 +750,6 @@ function App() {
               <small>
                 Consultora de Desarrollo de Software
               </small>
-
             </span>
 
           </button>
@@ -836,7 +850,6 @@ function App() {
                 }
               >
                 Ver nuestros desarrollos
-
                 <ArrowRight />
               </button>
 
@@ -847,7 +860,6 @@ function App() {
                 rel="noreferrer"
               >
                 <MessageCircle />
-
                 Solicitar demostración
               </a>
 
@@ -887,12 +899,10 @@ function App() {
               <aside>
 
                 <div className="mockLogo">
-
                   <img
                     src={`${base}images/logo.png`}
                     alt="GRUMEP"
                   />
-
                 </div>
 
                 <button>
@@ -927,7 +937,6 @@ function App() {
 
                   <span>
                     Ventas
-
                     <strong>
                       $ 1.250.000
                     </strong>
@@ -935,7 +944,6 @@ function App() {
 
                   <span>
                     Productos
-
                     <strong>
                       1.284
                     </strong>
@@ -943,7 +951,6 @@ function App() {
 
                   <span>
                     Clientes
-
                     <strong>
                       428
                     </strong>
@@ -952,14 +959,12 @@ function App() {
                 </section>
 
                 <div className="chart">
-
                   <i></i>
                   <i></i>
                   <i></i>
                   <i></i>
                   <i></i>
                   <i></i>
-
                 </div>
 
               </article>
@@ -980,9 +985,8 @@ function App() {
 
           <span>
             <b>
-              6+
+              7+
             </b>
-
             Desarrollos presentados
           </span>
 
@@ -990,7 +994,6 @@ function App() {
             <b>
               100%
             </b>
-
             Adaptables
           </span>
 
@@ -998,7 +1001,6 @@ function App() {
             <b>
               4
             </b>
-
             Rubros
           </span>
 
@@ -1006,7 +1008,6 @@ function App() {
             <b>
               1
             </b>
-
             Objetivo: hacer crecer tu negocio
           </span>
 
@@ -1054,6 +1055,7 @@ function App() {
 
             {categories.map(
               (cat) => (
+
                 <button
                   key={cat}
                   className={
@@ -1067,6 +1069,7 @@ function App() {
                 >
                   {cat}
                 </button>
+
               )
             )}
 
@@ -1078,6 +1081,7 @@ function App() {
 
             {list.map(
               (system) => (
+
                 <article
                   className="card"
                   key={system.name}
@@ -1102,11 +1106,8 @@ function App() {
                     </span>
 
                     <div className="imageOverlay">
-
                       <Play />
-
                       Ver demostración
-
                     </div>
 
                   </div>
@@ -1125,11 +1126,13 @@ function App() {
 
                       {system.features.map(
                         (feature) => (
+
                           <small
                             key={feature}
                           >
                             {feature}
                           </small>
+
                         )
                       )}
 
@@ -1141,14 +1144,13 @@ function App() {
                       }
                     >
                       Ver demostración
-
                       <ArrowRight />
-
                     </button>
 
                   </div>
 
                 </article>
+
               )
             )}
 
@@ -1209,31 +1211,28 @@ function App() {
                 "Gestión de stock y ventas",
                 "Controlá productos, ventas, clientes y stock desde un solo lugar.",
               ],
-
               [
                 Code2,
                 "Desarrollo a medida",
                 "Software creado según los procesos reales de tu empresa.",
               ],
-
               [
                 Database,
                 "Turnos y fichas",
                 "Organización de pacientes, profesionales, consultas e información.",
               ],
-
               [
                 ShieldCheck,
                 "Soporte y evolución",
                 "Mantenimiento, mejoras y nuevas funcionalidades para tu sistema.",
               ],
-
             ].map(
               ([
                 Icon,
                 title,
                 description,
               ]) => (
+
                 <div
                   className="service"
                   key={title}
@@ -1250,6 +1249,7 @@ function App() {
                   </p>
 
                 </div>
+
               )
             )}
 
@@ -1374,7 +1374,6 @@ function App() {
             rel="noreferrer"
           >
             <MessageCircle />
-
             Contactar por WhatsApp
           </a>
 
