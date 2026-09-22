@@ -64,7 +64,7 @@ const systems = [
         },
         {
           name: "Pro",
-          price: "$120.000",
+          price: "$180.000",
           period: "por 6 meses",
           description:
             "Una opción pensada para trabajar durante todo el año.",
