@@ -65,11 +65,11 @@ const systems = [
         {
           name: "Pro",
           price: "$120.000",
-          period: "por año",
+          period: "por 6 meses",
           description:
             "Una opción pensada para trabajar durante todo el año.",
           features: [
-            "Licencia por 12 meses",
+            "Licencia por 6 meses",
             "Pago único",
             "Gestión de ventas",
             "Control de stock",
