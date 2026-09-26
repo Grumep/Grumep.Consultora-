@@ -208,8 +208,12 @@ function App() {
 
   const base = import.meta.env.BASE_URL;
 
+  /* =======================================================
+     WHATSAPP - NÚMERO NUEVO
+  ======================================================= */
+
   const whatsapp =
-    "https://wa.me/543804881636?text=Hola%20GRUMEP,%20quiero%20consultar%20por%20un%20sistema";
+    "https://wa.me/543804844845?text=Hola%20GRUMEP,%20quiero%20consultar%20por%20un%20sistema";
 
   /* =======================================================
      DETECTAR PÁGINA DE DEMOSTRACIÓN
@@ -313,7 +317,6 @@ function App() {
 
         <header className="header">
           <div className="container nav">
-
             <button
               className="brand"
               onClick={closeDemo}
@@ -341,7 +344,6 @@ function App() {
             >
               Contactar
             </button>
-
           </div>
         </header>
 
@@ -406,7 +408,6 @@ function App() {
             {/* INFORMACIÓN */}
 
             <section className="demoInfo">
-
               <div className="demoDescription">
                 <label>
                   SOBRE EL SISTEMA
@@ -447,7 +448,6 @@ function App() {
                   )}
                 </div>
               </div>
-
             </section>
 
             {/* =================================================
@@ -456,11 +456,9 @@ function App() {
 
             {currentDemo.name === "TiendaApp" &&
               currentDemo.pricing && (
-
                 <section className="pricingSection">
 
                   <div className="pricingHeader">
-
                     <label>
                       LICENCIAS TIENDAAPP
                     </label>
@@ -477,17 +475,14 @@ function App() {
                       activación de una licencia para
                       continuar utilizándolo.
                     </p>
-
                   </div>
 
                   {/* AVISO DEMO */}
 
                   <div className="demoNotice">
-
                     <Clock />
 
                     <div>
-
                       <strong>
                         ¿Cómo funciona el demo?
                       </strong>
@@ -497,18 +492,14 @@ function App() {
                         demo → el sistema solicita
                         activación → elegís tu licencia.
                       </span>
-
                     </div>
-
                   </div>
 
                   {/* PLANES */}
 
                   <div className="pricingGrid">
-
                     {currentDemo.pricing.plans.map(
                       (plan) => (
-
                         <article
                           className={`pricingCard ${
                             plan.featured
@@ -517,7 +508,6 @@ function App() {
                           }`}
                           key={plan.name}
                         >
-
                           {plan.featured && (
                             <span className="pricingBadge">
                               RECOMENDADO
@@ -541,7 +531,6 @@ function App() {
                           </p>
 
                           <div className="pricingFeatures">
-
                             {plan.features.map(
                               (feature) => (
                                 <span key={feature}>
@@ -550,12 +539,11 @@ function App() {
                                 </span>
                               )
                             )}
-
                           </div>
 
                           <a
                             className="primary pricingButton"
-                            href={`https://wa.me/543804881636?text=Hola%20GRUMEP,%20quiero%20consultar%20por%20la%20licencia%20${encodeURIComponent(
+                            href={`https://wa.me/543804844845?text=Hola%20GRUMEP,%20quiero%20consultar%20por%20la%20licencia%20${encodeURIComponent(
                               plan.name
                             )}%20de%20TiendaApp`}
                             target="_blank"
@@ -564,16 +552,12 @@ function App() {
                             <MessageCircle />
                             Consultar licencia
                           </a>
-
                         </article>
-
                       )
                     )}
-
                   </div>
 
                   <div className="pricingFooter">
-
                     <CheckCircle2 />
 
                     <span>
@@ -582,7 +566,6 @@ function App() {
                       utilizando TiendaApp después
                       del período de demostración.
                     </span>
-
                   </div>
 
                 </section>
@@ -591,7 +574,6 @@ function App() {
             {/* IMAGEN */}
 
             <section className="demoScreenshot">
-
               <label>
                 VISTA DEL SISTEMA
               </label>
@@ -604,15 +586,12 @@ function App() {
                 src={`${base}images/${currentDemo.image}`}
                 alt={currentDemo.name}
               />
-
             </section>
 
             {/* CONTACTO */}
 
             <section className="demoContact">
-
               <div>
-
                 <label>
                   {currentDemo.name === "TiendaApp"
                     ? "¿QUERÉS CONTINUAR UTILIZANDO TIENDAAPP?"
@@ -630,14 +609,13 @@ function App() {
                     ? "Una vez finalizado el período de demostración, podés activar TiendaApp eligiendo la licencia que mejor se adapte a tu comercio."
                     : `Contactanos por WhatsApp y conocé cómo podemos adaptar ${currentDemo.name} a tu negocio.`}
                 </p>
-
               </div>
 
               <a
                 className="primary"
                 href={
                   currentDemo.name === "TiendaApp"
-                    ? "https://wa.me/543804881636?text=Hola%20GRUMEP,%20quiero%20consultar%20por%20una%20licencia%20de%20TiendaApp"
+                    ? "https://wa.me/543804844845?text=Hola%20GRUMEP,%20quiero%20consultar%20por%20una%20licencia%20de%20TiendaApp"
                     : whatsapp
                 }
                 target="_blank"
@@ -649,7 +627,6 @@ function App() {
                   ? "Consultar licencias"
                   : "Solicitar demostración"}
               </a>
-
             </section>
 
           </div>
@@ -661,9 +638,7 @@ function App() {
           <div className="container footer">
 
             <div>
-
               <div className="fbrand">
-
                 <img
                   src={`${base}images/logo.png`}
                   alt="GRUMEP"
@@ -672,17 +647,14 @@ function App() {
                 <strong>
                   GRUMEP
                 </strong>
-
               </div>
 
               <p>
                 Consultora de Desarrollo de Software.
               </p>
-
             </div>
 
             <div>
-
               <h4>
                 Contacto
               </h4>
@@ -692,13 +664,12 @@ function App() {
                 target="_blank"
                 rel="noreferrer"
               >
-                WhatsApp: 380 488-1636
+                WhatsApp: 380 484-4845
               </a>
 
               <span>
                 La Rioja, Argentina
               </span>
-
             </div>
 
           </div>
@@ -729,7 +700,6 @@ function App() {
       {/* HEADER */}
 
       <header className="header">
-
         <div className="container nav">
 
           <button
@@ -751,7 +721,6 @@ function App() {
                 Consultora de Desarrollo de Software
               </small>
             </span>
-
           </button>
 
           <nav
@@ -759,7 +728,6 @@ function App() {
               menuOpen ? "open" : ""
             }
           >
-
             <button
               onClick={() => go("inicio")}
             >
@@ -790,7 +758,6 @@ function App() {
             >
               Contacto
             </button>
-
           </nav>
 
           <button
@@ -808,7 +775,6 @@ function App() {
           </button>
 
         </div>
-
       </header>
 
       {/* HERO */}
@@ -817,11 +783,9 @@ function App() {
         id="inicio"
         className="hero"
       >
-
         <div className="container heroGrid">
 
           <div className="heroContent">
-
             <label>
               SOFTWARE QUE SE ADAPTA A TU NEGOCIO
             </label>
@@ -850,6 +814,7 @@ function App() {
                 }
               >
                 Ver nuestros desarrollos
+
                 <ArrowRight />
               </button>
 
@@ -860,6 +825,7 @@ function App() {
                 rel="noreferrer"
               >
                 <MessageCircle />
+
                 Solicitar demostración
               </a>
 
@@ -883,7 +849,6 @@ function App() {
               </span>
 
             </div>
-
           </div>
 
           {/* MOCKUP */}
@@ -937,6 +902,7 @@ function App() {
 
                   <span>
                     Ventas
+
                     <strong>
                       $ 1.250.000
                     </strong>
@@ -944,6 +910,7 @@ function App() {
 
                   <span>
                     Productos
+
                     <strong>
                       1.284
                     </strong>
@@ -951,6 +918,7 @@ function App() {
 
                   <span>
                     Clientes
+
                     <strong>
                       428
                     </strong>
@@ -970,17 +938,14 @@ function App() {
               </article>
 
             </main>
-
           </div>
 
         </div>
-
       </section>
 
       {/* STATS */}
 
       <section className="stats">
-
         <div className="container statsGrid">
 
           <span>
@@ -1012,7 +977,6 @@ function App() {
           </span>
 
         </div>
-
       </section>
 
       {/* DESARROLLOS */}
@@ -1021,13 +985,11 @@ function App() {
         id="desarrollos"
         className="section"
       >
-
         <div className="container">
 
           <div className="heading">
 
             <div>
-
               <label>
                 PORTAFOLIO
               </label>
@@ -1038,7 +1000,6 @@ function App() {
                   desarrollos
                 </em>
               </h2>
-
             </div>
 
             <p>
@@ -1055,7 +1016,6 @@ function App() {
 
             {categories.map(
               (cat) => (
-
                 <button
                   key={cat}
                   className={
@@ -1069,7 +1029,6 @@ function App() {
                 >
                   {cat}
                 </button>
-
               )
             )}
 
@@ -1081,7 +1040,6 @@ function App() {
 
             {list.map(
               (system) => (
-
                 <article
                   className="card"
                   key={system.name}
@@ -1126,13 +1084,11 @@ function App() {
 
                       {system.features.map(
                         (feature) => (
-
                           <small
                             key={feature}
                           >
                             {feature}
                           </small>
-
                         )
                       )}
 
@@ -1144,29 +1100,26 @@ function App() {
                       }
                     >
                       Ver demostración
+
                       <ArrowRight />
                     </button>
 
                   </div>
 
                 </article>
-
               )
             )}
 
           </div>
 
           <div className="portfolioNote">
-
             <CheckCircle2 />
 
             Sistemas desarrollados y
             adaptables a cada negocio.
-
           </div>
 
         </div>
-
       </section>
 
       {/* SERVICIOS */}
@@ -1175,13 +1128,11 @@ function App() {
         id="servicios"
         className="section dark"
       >
-
         <div className="container">
 
           <div className="heading light">
 
             <div>
-
               <label>
                 SERVICIOS
               </label>
@@ -1192,7 +1143,6 @@ function App() {
                   necesidad
                 </em>
               </h2>
-
             </div>
 
             <p>
@@ -1232,12 +1182,10 @@ function App() {
                 title,
                 description,
               ]) => (
-
                 <div
                   className="service"
                   key={title}
                 >
-
                   <Icon />
 
                   <h3>
@@ -1247,16 +1195,12 @@ function App() {
                   <p>
                     {description}
                   </p>
-
                 </div>
-
               )
             )}
 
           </div>
-
         </div>
-
       </section>
 
       {/* NOSOTROS */}
@@ -1265,7 +1209,6 @@ function App() {
         id="nosotros"
         className="section about"
       >
-
         <div className="container aboutGrid">
 
           <div className="aboutLogo">
@@ -1332,9 +1275,7 @@ function App() {
             </div>
 
           </div>
-
         </div>
-
       </section>
 
       {/* CONTACTO */}
@@ -1343,7 +1284,6 @@ function App() {
         id="contacto"
         className="contact"
       >
-
         <div className="container contactBox">
 
           <div>
@@ -1374,11 +1314,11 @@ function App() {
             rel="noreferrer"
           >
             <MessageCircle />
+
             Contactar por WhatsApp
           </a>
 
         </div>
-
       </section>
 
       {/* FOOTER */}
@@ -1451,7 +1391,7 @@ function App() {
               target="_blank"
               rel="noreferrer"
             >
-              WhatsApp: 380 488-1636
+              WhatsApp: 380 484-4845
             </a>
 
             <span>
