@@ -189,6 +189,22 @@ const systems = [
       "Gestión del negocio",
     ],
   },
+  
+  {
+    name: "Grumep Fiscal Tech",
+    category: "Comercios",
+    image: "grumep fiscal tech.png",
+    video: "grumep fiscal tech.mp4",
+    description:
+      "Sistema de facturación electrónica para consolidar las ventas diarias y gestionar comprobantes mediante la integración con ARCA.",
+    features: [
+      "Facturación electrónica ARCA",
+      "Cierre diario de ventas",
+      "Consolidación de tarjetas y QR",
+      "Gestión de comprobantes",
+    ],
+  },
+
 ];
 const categories = [
   "Todos",
