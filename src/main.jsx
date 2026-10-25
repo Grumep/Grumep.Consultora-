@@ -189,7 +189,6 @@ const systems = [
       "Gestión del negocio",
     ],
   },
-  
   {
     name: "Grumep Fiscal Tech",
     category: "Comercios",
