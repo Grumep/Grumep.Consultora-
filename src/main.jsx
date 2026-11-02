@@ -203,6 +203,23 @@ const systems = [
       "Gestión de comprobantes",
     ],
   },
+  
+  {
+    name: "Grumep SportTurnos",
+    category: "Servicios",
+    image: "grumep-sportturnos.png",
+    video: "grumep-sportturnos.mp4",
+    description:
+      "Sistema de gestión para complejos deportivos, diseñado para organizar reservas, turnos, canchas y actividades deportivas.",
+    features: [
+      "Gestión de complejos deportivos",
+      "Reservas y turnos",
+      "Administración de canchas",
+      "Control de horarios",
+      "Gestión de clientes",
+    ],
+  },
+
 
 ];
 const categories = [
